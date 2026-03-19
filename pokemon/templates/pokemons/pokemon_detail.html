@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalle{% endblock %}
+
+{% block content %}
+
+<div class="card shadow-lg p-4 mx-auto" style="max-width:500px;">
+
+    <h1 class="text-capitalize">{{ pokemon.name }}</h1>
+
+    <img src="{{ pokemon.image }}" style="width:150px;" class="mx-auto">
+
+    <hr>
+
+    <span class="badge bg-warning text-dark mb-3">{{ pokemon.types }}</span>
+
+    <p><strong>❤️ HP:</strong> {{ pokemon.hp }}</p>
+    <p><strong>⚔️ Ataque:</strong> {{ pokemon.attack }}</p>
+
+    <hr>
+
+    <p><strong>📏 Altura:</strong> {{ pokemon.height }}</p>
+    <p><strong>⚖️ Peso:</strong> {{ pokemon.weight }}</p>
+    <p><strong>⭐ Experiencia:</strong> {{ pokemon.base_experience }}</p>
+
+    <hr>
+
+    <p><strong>✨ Habilidades:</strong></p>
+    <p>{{ pokemon.abilities }}</p>
+
+    <a href="/" class="btn btn-dark mt-3">Volver</a>
+
+</div>
+
+{% endblock %}

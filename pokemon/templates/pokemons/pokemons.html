@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid text-center">
+	<h1>Lista de Pokémon</h1>
+
+	<a class="btn btn-success m-3" href="{% url 'pokemon_create' %}">
+		Crear Pokémon
+	</a>
+
+	<div class="d-flex flex-wrap justify-content-center gap-5">
+
+		{% for p in pokemons %}
+			<div class="card" style="width: 18rem;">
+
+				<img src="{{ p.image }}" class="card-img-top" alt="{{ p.name }}">
+
+				<div class="card-body">
+					<h5 class="card-title text-capitalize">{{ p.name }}</h5>
+
+					<p class="card-text">
+						<strong>Tipo:</strong> {{ p.types }}
+					</p>
+
+					<p class="h5">HP: {{ p.hp }}</p>
+					<p class="h6">ATK: {{ p.attack }}</p>
+
+					<a 
+						class="btn btn-primary" 
+						href="{% url 'pokemon_detail' p.id %}">
+						VER DETALLES
+					</a>
+
+					<a
+						class="btn btn-secondary"
+						href="{% url 'pokemon_update' p.id %}">
+						EDITAR
+					</a>
+
+					<a
+						class="btn btn-danger"
+						href="{% url 'pokemon_delete' p.id %}">
+						ELIMINAR
+					</a>
+
+				</div>
+			</div>
+		{% endfor %}
+
+	</div>
+</div>
+
+{% endblock %}
