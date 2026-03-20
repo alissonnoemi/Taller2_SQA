@@ -1,13 +1,29 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Pokemon
 from .forms import PokemonForm
+from django.core.paginator import Paginator
+from django.db.models import Q
 
 
 # Create your views here.
 
 def pokemons(request):
-    pokemons = Pokemon.objects.all()
-    return render(request, 'pokemons/pokemons.html', {'pokemons': pokemons})
+    query = request.GET.get('q', '')
+    pokemons_list = Pokemon.objects.all()
+
+    if query:
+        pokemons_list = pokemons_list.filter(
+            Q(name__icontains=query) | Q(types__icontains=query)
+        )
+
+    paginator = Paginator(pokemons_list, 20)
+    page_number = request.GET.get('page')
+    pokemons_page = paginator.get_page(page_number)
+
+    return render(request, 'pokemons/pokemons.html', {
+        'pokemons': pokemons_page,
+        'query': query
+    })
 
 def pokemon_detail(request, pokemon_id):
     pokemon = get_object_or_404(Pokemon, id=pokemon_id)
